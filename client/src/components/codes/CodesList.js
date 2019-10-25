@@ -66,6 +66,7 @@ export default function TaxList() {
                 columns={state.columns}
                 data={state.data}
                 exportButton={true}
+                isActions = {true}
                 actions={[
                     { icon: 'add', tooltip: 'Add Code', onClick: handleModalOpen, isFreeAction: true },
                 ]}

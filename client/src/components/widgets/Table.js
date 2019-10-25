@@ -21,15 +21,17 @@ export default function Employee(props) {
                 columns={props.columns}
                 data={myData}
                 onRowClick={props.onRowClick}
-                editable={{
-                    onRowUpdate: (newData, oldData) => {
-                        return props.handleUpdate(newData, oldData)
-                    },
-                    onRowDelete: (oldData) => {
-                        console.log(oldData)
-                        return props.handleDelete(oldData)
-                    }
-                }}
+                editable={props.isActions && props.isActions===true ?
+                    {
+                        onRowUpdate: (newData, oldData) => {
+                            return props.handleUpdate(newData, oldData)
+                        },
+                        onRowDelete: (oldData) => {
+                            console.log(oldData)
+                            return props.handleDelete(oldData)
+                        }
+                    } : false
+                }
                 options={{
                     exportButton: props.exportButton,
                     actionsColumnIndex: -1,

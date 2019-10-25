@@ -2,61 +2,45 @@ import React from 'react';
 import FormSection from '../widgets/FormSection';
 import * as Yup from 'yup';
 import Validation from '../validation/Validation';
-import axios from 'axios';
 import Snackbar from '../widgets/Snackbar';
+import PayRollRun from './PayRollRun';
 
-const Fields = [
-    { type: 'TextField', label: 'Name', name: 'val' },
-    { type: 'TextArea', label: 'Description', name: 'ATTRIB_01' },
-    { type: 'TextField', label: 'Code', name: 'ATTRIB_05' },
-    { type: 'Checkbox', label: 'Taxable', name: 'FLG_01', checked: false },
-    {
-        type: 'Checkbox', label: 'Active', name: 'FLG_02', checked: false
-    },
+const fields = [
+    { type: 'Date', label: 'Pay Period Start', name: '1' },
+    { type: 'Date', label: 'Pay Period End', name: '2' },
+    { type: 'Date', label: 'Pay Date', name: '3' },
 ]
 
 const Sections = [
     {
-        heading: 'Code Details',
-        data: Fields
+        heading: 'PayRoll Details',
+        data: fields
     },
 ]
 
 const ValidationSchema = Yup.object().shape({
-    val: Yup.string()
-        .max(30, 'Name is Too Long!')
-        .required('Name is Required'),
-    ATTRIB_01: Yup.string()
-        .max(100, 'Description is Too Long!'),
-    ATTRIB_05: Yup.string()
-        .max(30, 'Code is Too Long!'),
+   
 });
 
-export default function AddCode() {
+export default function PayRollDate() {
     const initialData = {
-        type: 'money code'
+        type: 'payroll'
     }
     const [data, setdata] = React.useState(initialData);
+    const [success, setSuccess] = React.useState(true);
     const [errors, setErrors] = React.useState([]);
     const [snackbar, setSnackbar] = React.useState({ open: false, });
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
-
         let err = await Validation(ValidationSchema, data, )
         if (err.isValid === false) {
             console.log(err.isValid)
-            setSnackbar({ ...snackbar, open: true, variant: 'error', message: 'Error Adding Code' });
+            setSnackbar({ ...snackbar, open: true, variant: 'error', message: 'Error Adding Contribution' });
             setErrors(err.errors);
         } else {
-            console.log(err.isValid)
-            axios.post(`http://localhost:4000/codes`, { data })
-                .then(res => {
-                    console.log(res);
-                    console.log(res.data);
-                    setSnackbar({ ...snackbar, open: true, variant: 'success', message: 'Code Added Successfully' });
-                })
-            console.log(data)
+            console.log("Yes")
+            setSuccess(false)
         }
     }
 
@@ -66,7 +50,7 @@ export default function AddCode() {
         }
 
         setSnackbar({ ...snackbar, open: false })
-
+        
         if(snackbar.variant === 'success'){
             setdata({ ...initialData });
             window.location.reload();   
@@ -91,6 +75,7 @@ export default function AddCode() {
     }
 
     return (
+        success ?
         <div>
             <FormSection
                 fields={Sections}
@@ -106,6 +91,7 @@ export default function AddCode() {
                 open={snackbar.open}
                 handleClose={handleSnackbarClose}
             />
-        </div>
+        </div> :
+        <PayRollRun />
     )
 }

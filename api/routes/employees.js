@@ -21,4 +21,7 @@ router.post('/deduction', EmployeeController.createDeduction );
 router.put('/deduction/:id', EmployeeController.updateDeduction);
 router.delete('/deduction/:id', EmployeeController.deleteDeduction);
 
+router.get('/employee/salary', EmployeeController.getSalary);
+
+
 module.exports = router;

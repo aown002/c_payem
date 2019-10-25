@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const db = require('../database/db');
 require('sequelize-hierarchy')(Sequelize);
 
 module.exports = (sequelize, DataTypes) => {

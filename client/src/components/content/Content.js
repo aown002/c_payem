@@ -11,6 +11,7 @@ import ContributionList from '../contributions/ContributionList';
 import DeductionList from '../deductions/DeductionList';
 import Home from '../Home';
 import PayRollRun from '../PayRoll/PayRollRun';
+import PayRollDate from '../PayRoll/PayRollDate';
 import Settings from '../Settings';
 import SiteMap from '../SiteMap';
 import Account from '../users/Account';
@@ -28,7 +29,7 @@ export default props => (
       <Route path="/employees" component={Employees} />
       <Route exact path="/employee/:id" component={Employee} />
       <Route exact path="/payroll-settings" component={Settings} />
-      <Route exact path="/run-payroll" component={PayRollRun} />
+      <Route exact path="/run-payroll" component={PayRollDate} />
       <Route exact path="/codes" component={CodesList} />
       <Route exact path="/tax" component={TaxList} />
       <Route exact path="/contributions" component={ContributionList} />

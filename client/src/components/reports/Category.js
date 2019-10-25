@@ -20,6 +20,7 @@ export default function TaxReport() {
                 title="Category Wise Report"
                 columns={columns}
                 data={data}
+                isAction = {true}
                 exportButton={true}
                 isFreeAction={false}
             />

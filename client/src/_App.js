@@ -6,11 +6,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Route, Switch } from 'react-router-dom';
 import Routes from './Routes';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { authActions } from './actions';
 
-const App = (props) => {
- // if (props.auth.authentication.loggedIn === false) return <Redirect to='/signin' />
+export default () => {
   return (
     <Router>
       <div className="App wrapper">
@@ -22,15 +19,3 @@ const App = (props) => {
     </Router>
   );
 }
-
-const mapStateToProps = (state) => {
-  console.log(state)
-  let alert = state.alertReducer
-  let auth = state.authReducer
-  return {
-    alert,
-    auth
-  }
-}
-
-export default connect(mapStateToProps, { ...authActions })(App)

@@ -26,11 +26,12 @@ const deductionsColumns = [
 ]
 
 const salaryInfoColumns = [
-    { title: 'Name', field: 'name' },
-    { title: 'Status', field: 'status' },
-    { title: 'Pay Type', field: 'pay_type' },
-    { title: 'Frequency', field: 'frequency' },
-    { title: 'Registration', field: 'registration' },
+    { title: 'Frequency', field: 'ATTRIB_22' },
+    { title: 'Pay Type', field: 'ATTRIB_23' },
+    { title: 'Pay Rate', field: 'ATTRIB_13' },
+    { title: 'Pay Rate Type', field: 'ATTRIB_14' },
+    { title: 'Annual Pay/Pay Period Rate', field: 'ATTRIB_23' },
+    { title: 'Annual Amount/Pay Period', field: 'ATTRIB_15' },
 ]
 
 const taxInfoColumns = [
@@ -63,12 +64,6 @@ export default function Employee(props) {
             .then(res => {
                 const data = res.data.data
                 const par_row_id = res.data.data[0].row_id;
-                // setState({
-                //     ...state,
-                //     data: {
-                //         par_row_id: par_row_id
-                //     }
-                // })
                 setState({ ...state, data })
                 console.log("DATA ", data)
             })
@@ -77,9 +72,9 @@ export default function Employee(props) {
 
     let id = props.match.params.id;
     const tabs = [
-        { id: '1', label: 'Contributions', icon: <TrendingUpIcon />, query: `http://localhost:4000/employees/contributions/${id}`, columns: contributionsColumns, component: <EmployeeContributionAdd data={state.data} /> },
-        { id: '2', label: 'Deductions', icon: <TrendingDownIcon />, query: `http://localhost:4000/employees/deductions/${id}`, columns: deductionsColumns, component: <EmployeeDeductionAdd data={state.data} /> },
-        { id: '3', label: 'Salary Info', icon: <AccountBalanceWalletIcon />, columns: salaryInfoColumns, },
+        { id: '1', label: 'Contributions', icon: <TrendingUpIcon />, isActions: false, query: `http://localhost:4000/employees/contributions/${id}`, columns: contributionsColumns, component: <EmployeeContributionAdd data={state.data} /> },
+        { id: '2', label: 'Deductions', icon: <TrendingDownIcon />, isActions: false, query: `http://localhost:4000/employees/deductions/${id}`, columns: deductionsColumns, component: <EmployeeDeductionAdd data={state.data} /> },
+        { id: '3', label: 'Salary Info', icon: <AccountBalanceWalletIcon />, isActions: false, query: `http://localhost:4000/employees/${id}`, columns: salaryInfoColumns, },
         { id: '4', label: 'Tax Info', icon: <AttachMoneyIcon />, columns: taxInfoColumns },
         { id: '5', label: 'Bank Info', icon: <AccountBalanceIcon />, columns: bankInfoColumns },
     ]

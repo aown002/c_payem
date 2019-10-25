@@ -56,7 +56,7 @@ function EmployeeList(props) {
   const handleDetailsClose = () => {
     setState({ ...state, detailsOpen: false })
     window.location.reload();
- 
+
   }
 
   const handleDelete = (rowData) => {
@@ -90,6 +90,7 @@ function EmployeeList(props) {
         columns={state.columns}
         data={state.data}
         exportButton={true}
+        isActions = {true}
         actions={[
           { icon: 'add', tooltip: 'Add Employee', onClick: handleModalOpen, isFreeAction: true },
           { icon: 'details', tooltip: 'Details', onClick: handleDetailsOpen },

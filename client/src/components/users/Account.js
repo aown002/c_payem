@@ -17,6 +17,8 @@ import FullScreenDialog from '../widgets/FullScreenDialog';
 import Dialogue from '../widgets/Dialogue';
 import ExpansionPanel from '../widgets/ExpansionPanel';
 import Table from '../widgets/Table';
+import { authActions } from '../../actions';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles({
   card: {
@@ -47,9 +49,7 @@ const data = [
   { id: '2', name: 'Saad', position: 'Moderator', email: 'saad@cwaret.com', password: '********', },
 ]
 
-
-
-export default function SimpleCard() {
+function SimpleCard(props) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -69,13 +69,16 @@ export default function SimpleCard() {
 
   function handleClickOpen() {
     setDialogueOpen(true);
-
   }
 
   function handleClose() {
     setDialogueOpen(false);
   }
 
+  function handleLogout() {
+    console.log("Logging out")
+    props.logout();
+  }
 
   return (
     <React.Fragment>
@@ -100,6 +103,7 @@ export default function SimpleCard() {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={() => handleClickOpen()}>Change Password ?</Button>
+          <Button size="small" onClick={() => handleLogout()}>Logout</Button>
         </CardActions>
       </Card>
       <Dialogue
@@ -136,3 +140,15 @@ export default function SimpleCard() {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log(state)
+  let alert = state.alertReducer
+  let auth = state.authReducer
+  return {
+    alert,
+    auth
+  }
+}
+
+export default connect(mapStateToProps, { ...authActions })(SimpleCard)

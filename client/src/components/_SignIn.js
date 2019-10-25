@@ -7,7 +7,6 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import EmailIcon from '@material-ui/icons/Email';
 import { connect } from 'react-redux';
 import { authActions } from '../actions';
-import { Redirect } from 'react-router-dom'
 
 const classes = makeStyles(theme => ({
   '@global': {
@@ -60,16 +59,31 @@ class SignIn extends Component {
 
   onSubmitForm = async (event) => {
     event.preventDefault()
-   
-    let user = this.state.user
-    this.props.login(user.email, user.password);
-    console.log(this.props.auth.authentication.loggedIn)
+    let response;
+    try {
+      response = await axios({
+        method: 'post',
+        url: 'http://localhost:4000/auth/login',
+        data: this.state.user
+      })
+
+      if (response.status === 200) {
+        window.loggedIn = true
+        this.props.history.push("/");
+      }
+    }
+    catch (err) {
+      console.log("ERROR ", err.message)
+      this.setState({
+        error: 'Incorrect Email or Password'
+      })
+      return
+    }
   }
 
   render() {
     // const classes = this.useStyles();
     const { user, } = this.state;
-    if (this.props.auth.authentication.loggedIn===true) return <Redirect to='/' />
     return (
       <div className="login-page">
         <img src={logo} width={180} height={120} className="pb-3" alt="" />
@@ -124,12 +138,9 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
   let alert = state.alertReducer
-  let auth = state.authReducer
   return {
     alert,
-    auth
   }
 }
 

@@ -224,11 +224,20 @@ const ValidationSchema = Yup.object().shape({
         then: Yup.string()
             .required('Pay Rate Type is Required')
     }),
-    ATTRIB_14: Yup.string().when('ATTRIB_13', {
-        is: 'Annual' || 'Pay Period',
-        then: Yup.string()
-            .max(30, 'Annual Pay Rate Too Long!')
-            .required('Annual Pay Rate is Required'),
+    ATTRIB_14: Yup.number().when('ATTRIB_24', {
+        is: 'Annual',
+        then: Yup.number()
+            .required('Annual Pay Rate is Required')
+            .typeError('Annual Pay Rate Must be a Number')
+            .positive("Annual Pay Rate Must be a Positive Number")
+            .max(30, 'Annual Pay Rate Too Long!'),
+    }),
+    ATTRIB_14: Yup.number().when('ATTRIB_24', {
+        is: 'Pay Period',
+        then: Yup.number()
+            .required('Pay Period Rate is Required')
+            .typeError('Pay Period Rate Must be a Number')
+            .positive("Pay Period Rate Must be a Positive Number"),
     }),
     // ATTRIB_15: Yup.string().when('ATTRIB_24',{
     //     is: 'Annual' || 'Pay Period',
@@ -240,7 +249,7 @@ const ValidationSchema = Yup.object().shape({
 
 function AddEmployee(props) {
     const initialData = {
-        ATTRIB_25: 'active', FLG_02: 'Complete'
+        bu_id: '1', ATTRIB_25: 'active', FLG_02: 'Complete'
     }
     const [data, setdata] = React.useState(initialData);
     const [errors, setErrors] = React.useState([]);
@@ -272,9 +281,10 @@ function AddEmployee(props) {
         }
 
         setSnackbar({ ...snackbar, open: false })
-        setdata({ ...initialData });
-        if(snackbar.variant === 'success'){
-            window.location.reload();   
+
+        if (snackbar.variant === 'success') {
+            setdata({ ...initialData });
+            window.location.reload();
         }
     }
 

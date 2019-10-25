@@ -20,6 +20,7 @@ export default function DeductionsReport() {
                 title = "Deductions Report"
                 columns={columns}
                 data={data}
+                isAction = {true}
                 exportButton={true}
                 isFreeAction={false}
             />

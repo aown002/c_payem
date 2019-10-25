@@ -20,6 +20,7 @@ export default function ContributionsReport() {
                 title = "Contributions Report"
                 columns={columns}
                 data={data}
+                isAction = {true}
                 exportButton={true}
                 isFreeAction={false}
             />

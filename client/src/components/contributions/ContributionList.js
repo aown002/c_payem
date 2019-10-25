@@ -67,6 +67,7 @@ export default function ContributionList() {
                 title="Contributions"
                 columns={state.columns}
                 data={state.data}
+                isActions = {true}
                 exportButton={true}
                 actions={[
                     { icon: 'add', tooltip: 'Add Contribution', onClick: handleModalOpen, isFreeAction: true },

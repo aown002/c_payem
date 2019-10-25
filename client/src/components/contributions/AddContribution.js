@@ -85,7 +85,7 @@ export default function AddContribution() {
     const [snackbar, setSnackbar] = React.useState({ open: false, });
 
     const onFormSubmit = async (e) => {
-        //e.preventDefault();
+        e.preventDefault();
         let err = await Validation(ValidationSchema, data, )
         if (err.isValid === false) {
             console.log(err.isValid)
@@ -109,8 +109,9 @@ export default function AddContribution() {
         }
 
         setSnackbar({ ...snackbar, open: false })
-        setdata({ ...initialData });
+        
         if(snackbar.variant === 'success'){
+            setdata({ ...initialData });
             window.location.reload();   
         }
     }

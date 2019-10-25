@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import Table from '../widgets/Table';
+import axios from 'axios';
 
-const columns= [
+const columns = [
     { title: 'Name', field: 'name' },
-    { title: 'Status', field: 'status' },
-    { title: 'Pay Type', field: 'pay_type' },
-    { title: 'Frequency', field: 'frequency' },
-    { title: 'Registration', field: 'registration' },
+    { title: 'Total Days', field: 'status' },
+    { title: 'Gross pay', field: 'pay_type' },
+    { title: 'Net Pay', field: 'frequency' },
 ]
 
-const data= [
-    { id: '1', name: 'Sajeel', status: 'Active', pay_type: 'Salary', frequency: 'Monthly', registration: 'Complete' },
+const data = [
+    //{ id: '1', name: 'Sajeel', status: 'Active', pay_type: 'Salary', frequency: 'Monthly', registration: 'Complete' },
 ]
 
 export default function PayRollRun(props) {
@@ -19,12 +19,26 @@ export default function PayRollRun(props) {
         modalOpen: false,
     });
 
+    useEffect(() => {
+        axios.get('http://localhost:4000/employees/employee/salary')
+            .then(res => {
+                console.log(res)
+                const data = res.data.data
+                console.log(data)
+                setState({ ...state, data })
+               
+            }).catch(err => {
+                console.log("Error ", err)
+            })
+        console.log(state)
+    }, {});
+
     return (
         <React.Fragment>
-            <Table 
-            title= "Run PayRoll"
-            columns= {columns}
-            data = {data}
+            <Table
+                title="Run PayRoll"
+                columns={columns}
+                data={state.data}
             />
         </React.Fragment>
     )

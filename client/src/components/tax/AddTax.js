@@ -35,7 +35,7 @@ const ValidationSchema = Yup.object().shape({
     ATTRIB_13: Yup.number()
         .typeError('Fixed Amount Must be a Number'),
     ATTRIB_17: Yup.number()
-        .typeError('Percentage Must be a Number'),
+        .typeError('Percentage Tax Must be a Number'),
     ATTRIB_02: Yup.string()
         .max(100, 'Description is Too Long!'),
 });

@@ -61,13 +61,12 @@ export default function ScrollableTabsButtonForce(props) {
 
     const setdata = (val) => {
         console.log(props.tabs[val].query)
-
         axios.get(props.tabs[val].query)
-        .then(res => {
-            const data = res.data.data
-            setData( data )
-            console.log("DATA ", data)
-        })
+            .then(res => {
+                const data = res.data.data
+                setData(data)
+                console.log("DATA ", data)
+            })
     }
 
     function handleChange(event, newValue) {
@@ -82,10 +81,6 @@ export default function ScrollableTabsButtonForce(props) {
 
     const handleModalClose = () => {
         setState({ ...state, modalOpen: false })
-    }
-
-    if (props.data) {
-        console.log(props.data)
     }
 
     return (
@@ -115,13 +110,13 @@ export default function ScrollableTabsButtonForce(props) {
                 </Tabs>
             </AppBar>
             <TabPanel>
-                {/* {props.tabs[value].panel} */}
                 <Table
                     title={props.tabs[value].label}
                     columns={props.tabs[value].columns}
+                    isActions={props.tabs[value].isActions}
                     data={data}
                     actions={[
-                        { icon: 'add', tooltip: 'Add '+props.tabs[value].label, onClick: handleModalOpen, isFreeAction: true },
+                        { icon: 'add', tooltip: 'Add ' + props.tabs[value].label, onClick: handleModalOpen, isFreeAction: true },
                     ]}
                     icon='add'
                     tooltip={"Add " + props.tabs[value].label}
@@ -133,7 +128,7 @@ export default function ScrollableTabsButtonForce(props) {
                 handleClose={handleModalClose}
                 component={props.tabs[value].component}
                 title={props.tabs[value].label + " Details"}
-                data = {props.data}
+                data={props.data}
             />
         </div>
     );

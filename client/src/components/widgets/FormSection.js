@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Select from './Select';
-import CheckBoxes from './CheckBoxes';
 import classNames from 'classnames';
 import { FormHelperText } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -55,7 +54,6 @@ export default function FormSection(props) {
 
         switch (field.type) {
             case 'TextField':
-                console.log(field.disabled)
                 return (
                     <Grid item xs={4} style={field.readOnly && field.readOnly(props.data) === true ? { display: 'none', visibility: 'hidden' } : {}}>
                         <TextField
@@ -67,7 +65,7 @@ export default function FormSection(props) {
                             label={field.label}
                             value={props.data && props.data[field.name]}
                             onChange={(event) => props.handleChange(event, props.data)}
-                            onFocus={(event) => props.handleFocus(event, props.data)}
+                            disabled = {field.disabled}
                             margin="normal"
                             variant="outlined"
                             className={classes.textField}
@@ -176,8 +174,9 @@ export default function FormSection(props) {
                             inputProps={{
                                 'name2': field.name2
                             }}
+                            defaultValue = 'No'
                             onChange={props.handleChange}
-                            value={props.data && props.data[field.name]}
+                            value={props.data && props.data[field.name]=== null ? 'No' : props.data[field.name]}
                         />
                         {field.label}
                     </Grid>
@@ -246,19 +245,6 @@ export default function FormSection(props) {
         }
         return arr;
     }
-
-    const submitData = (e) => {
-        e.preventDefault();
-        let newArr = []
-        console.log(props.fields[0].data)
-        newArr = props.fields[0].data.map(field => {
-            return { ...field, name: field.name2 }
-        })
-
-        console.log(newArr)
-        props.onFormSubmit()
-    }
-
 
     return (
         <div className={classes.main}>

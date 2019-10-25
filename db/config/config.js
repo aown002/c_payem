@@ -5,7 +5,6 @@ module.exports = {
     "database": process.env.MYSQL_DATABASE || "payem",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": false
   },
   "test": {
     "username": process.env.MYSQL_USERNAME || "root",
@@ -13,7 +12,6 @@ module.exports = {
     "database": process.env.MYSQL_DATABASE || "payem",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": false
   },
   "production": {
     "username": process.env.MYSQL_USERNAME || "root",
@@ -21,6 +19,5 @@ module.exports = {
     "database": process.env.MYSQL_DATABASE || "payem",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "operatorsAliases": false
   }
 }
